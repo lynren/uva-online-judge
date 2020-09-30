@@ -1,3 +1,39 @@
+/* Lyndon Renaud
+ * 2020-09-30
+ * 
+ * How I solved this problem:
+ * We can partition the set of ballots into voting boxes.
+ * No ballot is in more than one ballot box.
+ * When a candidate is eliminated, then for each ballot in their box, 
+ * we copy the ballot to the next non-eliminated candidate id written on the ballot.
+ * Once all ballots in an eliminated candidate's vote box have been copied, we empty 
+ * the elimnated candidate's vote box and never look inside it again.
+ *
+ * How to determine a winner (or group of winners)?
+ * We look at the size of all vote boxes of candidates still in the race
+ * The set of vote boxes with the largest size = W
+ * We also keep track of the amount of eliminated candidates => loser_count
+ * There are 3 cases which determine a winner:
+ *
+ * Case 1: |W| == 1
+ * In this case, there is only 1 vote box with the largest size, V.
+ * We check if |V| > total_ballots / 2
+ * If true, then the candidate belonging to box V is the winner
+ * Else owner of box V is not the winner
+ * 
+ * Case 2: |W| > 1
+ * In this case, there are multiple vote boxes with the largest size
+ * So we have a collection of largest voting boxes, L
+ * If the summation of the sizes of V in L == total_ballots
+ * then we have a |L| way tie between the owners of each box V in L
+ *
+ * Case 3: loser_count == total_candidates - 1
+ * In this case, all candidates but 1 have been eliminated.
+ * Then the last standing candidate is the winner
+ *
+ * We continuously eliminated candidates until one of these cases yields a winner
+ */
+
 #include <iostream>
 #include <vector>
 #include <string>
