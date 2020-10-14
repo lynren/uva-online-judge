@@ -5,7 +5,6 @@
  */
 
 #include <iostream>
-#include <vector>
 #include <unordered_map>
 #include <cmath>
 
@@ -20,7 +19,6 @@ int main(){
                 if(m <= 1){cout << m << " divides " << n << "!\n"; continue;}
                 if(n == 0){cout << m << " does not divide 0!\n"; continue;}
                 if(n == m){cout << m << " divides " << m << "!\n"; continue;}
-                vector<ll> prime_factors;
                 unordered_map<ll, ll> prime_factor_powers;
                 ll temp = m;
 
@@ -32,7 +30,6 @@ int main(){
                 // we first compute the prime factorization of a
                 // Special case for 2, since it's the only even prime
                 if(m % 2 == 0){
-                        prime_factors.push_back(2);
                         prime_factor_powers[2] = 0;
                         while(m % 2 == 0){
                                 ++prime_factor_powers[2];
@@ -45,7 +42,6 @@ int main(){
                 // this is similar to the sieve or eratosthenes
                 for(ll i = 3; i <= sqrt(m); i+=2){
                         if(m % i == 0){
-                                prime_factors.push_back(i);
                                 prime_factor_powers[i] = 0;
                                 while(m % i == 0){
                                         ++prime_factor_powers[i];
@@ -62,7 +58,6 @@ int main(){
                                 cout << temp << " does not divide " << n << "!\n";
                                 continue;
                         }
-                        prime_factors.push_back(m);
                         prime_factor_powers[m] = 1;
                 }
                 // we now check if the prime factorization of m is in n!
@@ -81,9 +76,9 @@ int main(){
                 bool divides = true;    // assume at first m divides n!
                 
 
-                for(ll i = 0; i < prime_factors.size(); ++i){
-                        ll res = 0, factor = prime_factors[i];
-                        ll exp = prime_factor_powers[factor];
+                //for(ll i = 0; i < prime_factors.size(); ++i){
+                for(auto& i : prime_factor_powers){
+                        ll res = 0, factor = i.first, exp=i.second;
                         for(ll power = factor; power <= n; power *= factor) res += n/power;
                         if(res < exp){
                                 divides = false;
