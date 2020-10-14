@@ -16,9 +16,9 @@ int main(){
         ll n, m;
         while(cin >> n >> m){
                 // some weird cases
-                if(m <= 1){cout << m << " divides " << n << "!\n"; continue;}
-                if(n == 0){cout << m << " does not divide 0!\n"; continue;}
-                if(n == m){cout << m << " divides " << m << "!\n"; continue;}
+                if(m == 1){cout << m << " divides " << n << "!\n"; continue;}
+                if(m == 0){cout << "0 does not divide " << n << "!\n"; continue;}
+                if(n == m || n == 0){cout << m << " divides " << n << "!\n"; continue;}
                 unordered_map<ll, ll> prime_factor_powers;
                 ll temp = m;
 
